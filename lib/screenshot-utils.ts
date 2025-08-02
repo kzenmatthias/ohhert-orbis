@@ -9,7 +9,7 @@ export interface ScreenshotInfo {
   targetName: string;
 }
 
-export async function getLatestScreenshot(targetName: string): Promise<ScreenshotInfo | null> {
+export async function getLatestSessionScreenshots(targetName: string): Promise<ScreenshotInfo[]> {
   try {
     const screenshotsDir = path.join(process.cwd(), 'screenshots');
     const sanitizedName = targetName
@@ -22,34 +22,46 @@ export async function getLatestScreenshot(targetName: string): Promise<Screensho
     const validDates = dateDirectories.filter(dir => /^\d{4}-\d{2}-\d{2}$/.test(dir));
     
     if (validDates.length === 0) {
-      return null;
+      return [];
     }
 
     // Sort by date descending (most recent first)
     validDates.sort().reverse();
 
-    // Look for screenshots matching the target name
+    // Look for screenshots matching the target name and find the latest session
     for (const dateDir of validDates) {
       const datePath = path.join(screenshotsDir, dateDir);
       
       try {
         const files = await fs.readdir(datePath);
         const matchingFiles = files.filter(file => 
-          file.startsWith(sanitizedName) && file.endsWith('.png')
+          file.startsWith(sanitizedName + '-') && file.endsWith('.png')
         );
 
         if (matchingFiles.length > 0) {
           // Sort by filename (which includes timestamp) descending
           matchingFiles.sort().reverse();
-          const latestFile = matchingFiles[0];
           
-          return {
-            filename: latestFile,
-            fullPath: path.join(datePath, latestFile),
-            date: dateDir,
-            timestamp: new Date(dateDir + 'T00:00:00'),
-            targetName: sanitizedName,
-          };
+          // Extract timestamp from the latest file to identify the session
+          const latestFile = matchingFiles[0];
+          const timestampMatch = latestFile.match(/-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2})-\d{2}-\d{3}Z\.png$/);
+          
+          if (timestampMatch) {
+            const latestTimePrefix = timestampMatch[1]; // YYYY-MM-DDTHH-MM
+            
+            // Find all files from the same session (same hour and minute)
+            const sessionFiles = matchingFiles.filter(file => 
+              file.includes(latestTimePrefix)
+            );
+            
+            return sessionFiles.map(filename => ({
+              filename,
+              fullPath: path.join(datePath, filename),
+              date: dateDir,
+              timestamp: new Date(dateDir + 'T00:00:00'),
+              targetName: sanitizedName,
+            }));
+          }
         }
       } catch (error) {
         // Skip this directory if we can't read it
@@ -57,11 +69,17 @@ export async function getLatestScreenshot(targetName: string): Promise<Screensho
       }
     }
 
-    return null;
+    return [];
   } catch (error) {
-    console.error('Error finding latest screenshot:', error);
-    return null;
+    console.error('Error finding latest session screenshots:', error);
+    return [];
   }
+}
+
+// Keep the old function for backward compatibility
+export async function getLatestScreenshot(targetName: string): Promise<ScreenshotInfo | null> {
+  const screenshots = await getLatestSessionScreenshots(targetName);
+  return screenshots.length > 0 ? screenshots[0] : null;
 }
 
 export async function getAllScreenshotsForTarget(targetName: string): Promise<ScreenshotInfo[]> {
@@ -84,7 +102,7 @@ export async function getAllScreenshotsForTarget(targetName: string): Promise<Sc
       try {
         const files = await fs.readdir(datePath);
         const matchingFiles = files.filter(file => 
-          file.startsWith(sanitizedName) && file.endsWith('.png')
+          file.startsWith(sanitizedName + '-') && file.endsWith('.png')
         );
 
         for (const file of matchingFiles) {

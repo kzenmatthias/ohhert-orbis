@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
     
     const target = db.createTarget({
       name: body.name,
-      url: body.url,
       requiresLogin: body.requiresLogin || false,
       loginUrl: body.loginUrl,
       usernameSelector: body.usernameSelector,
@@ -27,6 +26,7 @@ export async function POST(request: NextRequest) {
       submitSelector: body.submitSelector,
       usernameEnvKey: body.usernameEnvKey,
       passwordEnvKey: body.passwordEnvKey,
+      urls: body.urls || [],
     });
 
     return NextResponse.json(target, { status: 201 });

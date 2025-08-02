@@ -1,13 +1,14 @@
 import { chromium, Browser, Page } from 'playwright';
 import fs from 'fs/promises';
 import path from 'path';
-import { ScreenshotTarget } from './db';
+import { ScreenshotTarget, ScreenshotUrl } from './db';
 
 export interface ScreenshotResult {
   success: boolean;
   filename?: string;
   filepath?: string;
   error?: string;
+  urlName?: string;
 }
 
 export class ScreenshotService {
@@ -16,7 +17,7 @@ export class ScreenshotService {
   async initBrowser() {
     if (!this.browser) {
       this.browser = await chromium.launch({
-        headless: true,
+        headless: process.env.HEADLESS_MODE?.toLowerCase() !== 'false',
       });
     }
     return this.browser;
@@ -81,8 +82,46 @@ export class ScreenshotService {
     console.log('Login completed');
   }
 
-  async captureScreenshot(target: ScreenshotTarget): Promise<ScreenshotResult> {
+  async captureScreenshotForUrl(target: ScreenshotTarget, url: ScreenshotUrl, page: Page): Promise<ScreenshotResult> {
+    try {
+      console.log(`Navigating to URL: ${url.name} (${url.url})`);
+      await page.goto(url.url, { waitUntil: 'networkidle' });
+
+      // Wait a bit for any dynamic content to load
+      await page.waitForTimeout(2000);
+
+      const screenshotDir = await this.ensureScreenshotDir();
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const filename = `${this.sanitizeFilename(target.name)}-${this.sanitizeFilename(url.name)}-${timestamp}.png`;
+      const filepath = path.join(screenshotDir, filename);
+
+      console.log(`Taking screenshot: ${filename}`);
+      await page.screenshot({
+        path: filepath,
+        fullPage: true,
+      });
+
+      console.log(`Screenshot saved: ${filepath}`);
+      
+      return {
+        success: true,
+        filename,
+        filepath,
+        urlName: url.name,
+      };
+    } catch (error) {
+      console.error(`Screenshot failed for ${target.name} - ${url.name}:`, error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        urlName: url.name,
+      };
+    }
+  }
+
+  async captureScreenshot(target: ScreenshotTarget): Promise<ScreenshotResult[]> {
     let page: Page | null = null;
+    const results: ScreenshotResult[] = [];
     
     try {
       console.log(`Starting screenshot capture for: ${target.name}`);
@@ -98,36 +137,28 @@ export class ScreenshotService {
         await this.performLogin(page, target);
       }
 
-      console.log(`Navigating to target URL: ${target.url}`);
-      await page.goto(target.url, { waitUntil: 'networkidle' });
+      // If no URLs are defined, skip this target
+      if (!target.urls || target.urls.length === 0) {
+        console.log(`No URLs defined for target: ${target.name}`);
+        return [{
+          success: false,
+          error: 'No URLs defined for this target',
+        }];
+      }
 
-      // Wait a bit for any dynamic content to load
-      await page.waitForTimeout(2000);
+      // Capture screenshots for all URLs
+      for (const url of target.urls) {
+        const result = await this.captureScreenshotForUrl(target, url, page);
+        results.push(result);
+      }
 
-      const screenshotDir = await this.ensureScreenshotDir();
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const filename = `${this.sanitizeFilename(target.name)}-${timestamp}.png`;
-      const filepath = path.join(screenshotDir, filename);
-
-      console.log(`Taking screenshot: ${filename}`);
-      await page.screenshot({
-        path: filepath,
-        fullPage: true,
-      });
-
-      console.log(`Screenshot saved: ${filepath}`);
-      
-      return {
-        success: true,
-        filename,
-        filepath,
-      };
+      return results;
     } catch (error) {
       console.error(`Screenshot failed for ${target.name}:`, error);
-      return {
+      return [{
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
-      };
+      }];
     } finally {
       if (page) {
         await page.close();
@@ -142,8 +173,8 @@ export class ScreenshotService {
       await this.initBrowser();
       
       for (const target of targets) {
-        const result = await this.captureScreenshot(target);
-        results.push(result);
+        const targetResults = await this.captureScreenshot(target);
+        results.push(...targetResults);
       }
     } finally {
       await this.closeBrowser();

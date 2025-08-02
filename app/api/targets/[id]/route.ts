@@ -30,7 +30,6 @@ export async function PUT(
     
     const target = db.updateTarget(parseInt(params.id), {
       name: body.name,
-      url: body.url,
       requiresLogin: body.requiresLogin,
       loginUrl: body.loginUrl,
       usernameSelector: body.usernameSelector,
@@ -38,6 +37,7 @@ export async function PUT(
       submitSelector: body.submitSelector,
       usernameEnvKey: body.usernameEnvKey,
       passwordEnvKey: body.passwordEnvKey,
+      urls: body.urls || [],
     });
 
     if (!target) {

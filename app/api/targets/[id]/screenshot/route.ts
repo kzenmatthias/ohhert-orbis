@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
-import { getLatestScreenshot } from '@/lib/screenshot-utils';
+import { getLatestSessionScreenshots } from '@/lib/screenshot-utils';
 
 export async function GET(
   request: NextRequest,
@@ -14,20 +14,20 @@ export async function GET(
       return NextResponse.json({ error: 'Target not found' }, { status: 404 });
     }
 
-    const screenshot = await getLatestScreenshot(target.name);
+    const screenshots = await getLatestSessionScreenshots(target.name);
     
-    if (!screenshot) {
-      return NextResponse.json({ screenshot: null });
+    if (screenshots.length === 0) {
+      return NextResponse.json({ screenshots: [] });
     }
 
-    // Return screenshot info with API path
+    // Return screenshot info with API paths
     return NextResponse.json({
-      screenshot: {
+      screenshots: screenshots.map(screenshot => ({
         filename: screenshot.filename,
         date: screenshot.date,
         timestamp: screenshot.timestamp,
         url: `/api/screenshots/${screenshot.date}/${screenshot.filename}`,
-      }
+      }))
     });
   } catch (error) {
     console.error('Error getting screenshot for target:', error);

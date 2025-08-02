@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Screenshot Manager",
+  title: "Orbis",
   description: "Manage and capture website screenshots automatically",
 };
 

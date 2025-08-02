@@ -120,7 +120,7 @@ export default function Dashboard() {
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Screenshot Manager</h1>
+          <h1 className="text-3xl font-bold">Orbis</h1>
           <p className="text-muted-foreground">Manage and capture website screenshots automatically</p>
         </div>
         <div className="flex gap-2">
@@ -163,16 +163,29 @@ export default function Dashboard() {
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                    <ExternalLink className="w-4 h-4" />
-                    <a 
-                      href={target.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      {target.url}
-                    </a>
+                  <div className="text-sm text-muted-foreground mb-2">
+                    <div className="flex items-center gap-2 mb-1">
+                      <ExternalLink className="w-4 h-4" />
+                      <span>URLs ({target.urls?.length || 0}):</span>
+                    </div>
+                    {target.urls && target.urls.length > 0 ? (
+                      <div className="pl-6 space-y-1">
+                        {target.urls.map((url, index) => (
+                          <div key={index}>
+                            <a 
+                              href={url.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="hover:underline text-blue-600"
+                            >
+                              {url.name}
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="pl-6 text-muted-foreground">No URLs configured</div>
+                    )}
                   </div>
                   {target.requiresLogin && (
                     <div className="text-xs text-muted-foreground">

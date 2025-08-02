@@ -1,4 +1,4 @@
-# Screenshot Manager
+# Orbis
 
 A local web-based tool for managing website screenshot targets and taking automated screenshots using Playwright.
 
