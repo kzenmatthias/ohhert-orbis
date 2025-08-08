@@ -4,11 +4,12 @@ import path from 'path';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
+    const { path: pathSegments } = await params;
     // Reconstruct the file path from the segments
-    const filePath = path.join(process.cwd(), 'screenshots', ...params.path);
+    const filePath = path.join(process.cwd(), 'screenshots', ...pathSegments);
     
     // Security check: ensure the path is within the screenshots directory
     const screenshotsDir = path.join(process.cwd(), 'screenshots');
@@ -33,7 +34,7 @@ export async function GET(
           'Cache-Control': 'public, max-age=86400', // Cache for 24 hours
         },
       });
-    } catch (error) {
+    } catch {
       return NextResponse.json({ error: 'File not found' }, { status: 404 });
     }
   } catch (error) {

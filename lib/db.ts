@@ -1,5 +1,6 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs';
 
 export interface ScreenshotUrl {
   id?: number;
@@ -28,15 +29,78 @@ class DatabaseManager {
   private db: Database.Database;
 
   constructor() {
-    const dbPath = path.join(process.cwd(), 'data', 'screenshots.db');
+    const dataDir = path.join(process.cwd(), 'data');
+    const dbPath = path.join(dataDir, 'screenshots.db');
+    
+    // Ensure data directory exists
+    try {
+      fs.mkdirSync(dataDir, { recursive: true });
+    } catch {
+      // Directory might already exist, ignore error
+    }
+    
     this.db = new Database(dbPath);
     this.init();
   }
 
   private init() {
-    // Create targets table (without url column)
+    // Check if we need to migrate from old schema
+    const tables = this.db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all() as { name: string }[];
+    const hasTargets = tables.some((t) => t.name === 'targets');
+    const hasTargetUrls = tables.some((t) => t.name === 'target_urls');
+
+    if (!hasTargets && !hasTargetUrls) {
+      // Fresh install - create new schema
+      this.createNewSchema();
+    } else if (hasTargets && !hasTargetUrls) {
+      // Need to migrate existing data
+      this.migrateFromOldSchema();
+    }
+
+    // Ensure target_urls table exists
     this.db.exec(`
-      CREATE TABLE IF NOT EXISTS targets (
+      CREATE TABLE IF NOT EXISTS target_urls (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        targetId INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        url TEXT NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (targetId) REFERENCES targets (id) ON DELETE CASCADE
+      )
+    `);
+
+    this.db.exec(`
+      CREATE TRIGGER IF NOT EXISTS update_targets_timestamp 
+      AFTER UPDATE ON targets
+      BEGIN
+        UPDATE targets SET updatedAt = CURRENT_TIMESTAMP WHERE id = NEW.id;
+      END
+    `);
+  }
+
+  private createNewSchema() {
+    // Create targets table without url column
+    this.db.exec(`
+      CREATE TABLE targets (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        requiresLogin BOOLEAN NOT NULL DEFAULT 0,
+        loginUrl TEXT,
+        usernameSelector TEXT,
+        passwordSelector TEXT,
+        submitSelector TEXT,
+        usernameEnvKey TEXT,
+        passwordEnvKey TEXT,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+  }
+
+  private migrateFromOldSchema() {
+    // Create new targets table without url column
+    this.db.exec(`
+      CREATE TABLE targets_new (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL UNIQUE,
         requiresLogin BOOLEAN NOT NULL DEFAULT 0,
@@ -51,6 +115,13 @@ class DatabaseManager {
       )
     `);
 
+    // Copy data from old table (excluding url column)
+    this.db.exec(`
+      INSERT INTO targets_new (id, name, requiresLogin, loginUrl, usernameSelector, passwordSelector, submitSelector, usernameEnvKey, passwordEnvKey, createdAt, updatedAt)
+      SELECT id, name, requiresLogin, loginUrl, usernameSelector, passwordSelector, submitSelector, usernameEnvKey, passwordEnvKey, createdAt, updatedAt
+      FROM targets
+    `);
+
     // Create target_urls table
     this.db.exec(`
       CREATE TABLE IF NOT EXISTS target_urls (
@@ -63,25 +134,17 @@ class DatabaseManager {
       )
     `);
 
-    // Migration: Move existing url data to target_urls table
+    // Move URL data to target_urls table
     this.db.exec(`
-      INSERT OR IGNORE INTO target_urls (targetId, name, url)
+      INSERT INTO target_urls (targetId, name, url)
       SELECT id, name || ' - Main', url 
       FROM targets 
       WHERE url IS NOT NULL AND url != ''
-      AND NOT EXISTS (SELECT 1 FROM target_urls WHERE targetId = targets.id)
     `);
 
-    // Remove url column from targets table (SQLite doesn't support DROP COLUMN directly)
-    // We'll handle this gracefully by ignoring the url column in queries
-
-    this.db.exec(`
-      CREATE TRIGGER IF NOT EXISTS update_targets_timestamp 
-      AFTER UPDATE ON targets
-      BEGIN
-        UPDATE targets SET updatedAt = CURRENT_TIMESTAMP WHERE id = NEW.id;
-      END
-    `);
+    // Drop old table and rename new one
+    this.db.exec(`DROP TABLE targets`);
+    this.db.exec(`ALTER TABLE targets_new RENAME TO targets`);
   }
 
   getAllTargets(): ScreenshotTarget[] {

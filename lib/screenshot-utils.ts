@@ -63,7 +63,7 @@ export async function getLatestSessionScreenshots(targetName: string): Promise<S
             }));
           }
         }
-      } catch (error) {
+      } catch {
         // Skip this directory if we can't read it
         continue;
       }
@@ -114,7 +114,7 @@ export async function getAllScreenshotsForTarget(targetName: string): Promise<Sc
             targetName: sanitizedName,
           });
         }
-      } catch (error) {
+      } catch {
         // Skip this directory if we can't read it
         continue;
       }

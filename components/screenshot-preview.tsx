@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Eye, Image as ImageIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -28,11 +27,7 @@ export function ScreenshotPreview({ targetId, targetName }: ScreenshotPreviewPro
   const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
-  useEffect(() => {
-    fetchScreenshot();
-  }, [targetId]);
-
-  const fetchScreenshot = async () => {
+  const fetchScreenshot = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/targets/${targetId}/screenshot`);
@@ -44,7 +39,11 @@ export function ScreenshotPreview({ targetId, targetName }: ScreenshotPreviewPro
     } finally {
       setLoading(false);
     }
-  };
+  }, [targetId]);
+
+  useEffect(() => {
+    fetchScreenshot();
+  }, [fetchScreenshot]);
 
   const handleImageError = () => {
     setImageError(true);

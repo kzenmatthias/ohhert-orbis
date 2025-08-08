@@ -1,0 +1,302 @@
+<testsuites id="" name="" tests="70" failures="0" skipped="70" errors="0" time="0.06462100000000004">
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="chromium" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Dashboard › should display the main dashboard" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should show empty state when no targets exist" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should open target form when Add Target button is clicked" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should create a new target successfully" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should configure login settings for a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should add multiple URLs to a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should validate form inputs" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should edit an existing target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should delete a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="infrastructure.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="chromium" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="E2E Testing Infrastructure › should be able to navigate to a basic page" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should be able to take screenshots" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support different viewport sizes" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should handle basic interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support form interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="firefox" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Dashboard › should display the main dashboard" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should show empty state when no targets exist" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should open target form when Add Target button is clicked" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should create a new target successfully" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should configure login settings for a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should add multiple URLs to a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should validate form inputs" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should edit an existing target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should delete a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="infrastructure.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="firefox" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="E2E Testing Infrastructure › should be able to navigate to a basic page" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should be able to take screenshots" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support different viewport sizes" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should handle basic interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support form interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="webkit" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Dashboard › should display the main dashboard" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should show empty state when no targets exist" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should open target form when Add Target button is clicked" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should create a new target successfully" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should configure login settings for a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should add multiple URLs to a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should validate form inputs" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should edit an existing target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should delete a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="infrastructure.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="webkit" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="E2E Testing Infrastructure › should be able to navigate to a basic page" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should be able to take screenshots" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support different viewport sizes" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should handle basic interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support form interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="Mobile Chrome" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Dashboard › should display the main dashboard" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should show empty state when no targets exist" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should open target form when Add Target button is clicked" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should create a new target successfully" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should configure login settings for a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should add multiple URLs to a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should validate form inputs" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should edit an existing target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should delete a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="infrastructure.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="Mobile Chrome" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="E2E Testing Infrastructure › should be able to navigate to a basic page" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should be able to take screenshots" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support different viewport sizes" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should handle basic interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support form interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="Mobile Safari" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Dashboard › should display the main dashboard" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should show empty state when no targets exist" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should open target form when Add Target button is clicked" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should create a new target successfully" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should configure login settings for a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should add multiple URLs to a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should validate form inputs" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should edit an existing target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Dashboard › should delete a target" classname="dashboard.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="infrastructure.spec.ts" timestamp="2025-08-08T08:31:55.832Z" hostname="Mobile Safari" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="E2E Testing Infrastructure › should be able to navigate to a basic page" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should be able to take screenshots" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support different viewport sizes" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should handle basic interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="E2E Testing Infrastructure › should support form interactions" classname="infrastructure.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

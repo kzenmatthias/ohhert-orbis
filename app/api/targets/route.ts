@@ -15,6 +15,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    console.log('Creating target with data:', body);
+    
     const db = getDb();
     
     const target = db.createTarget({
@@ -29,9 +31,18 @@ export async function POST(request: NextRequest) {
       urls: body.urls || [],
     });
 
+    console.log('Target created successfully:', target);
     return NextResponse.json(target, { status: 201 });
   } catch (error) {
     console.error('Error creating target:', error);
-    return NextResponse.json({ error: 'Failed to create target' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorStack = error instanceof Error ? error.stack : undefined;
+    if (errorStack) {
+      console.error('Error stack:', errorStack);
+    }
+    return NextResponse.json({ 
+      error: 'Failed to create target',
+      details: errorMessage 
+    }, { status: 500 });
   }
 }

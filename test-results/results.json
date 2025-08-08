@@ -1,0 +1,1569 @@
+{
+  "config": {
+    "configFile": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/playwright.config.ts",
+    "rootDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e/global-setup.ts",
+    "globalTeardown": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e/global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/junit.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/Users/matthiasandriessen/projects/ohhert/ohhert-orbis/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.2",
+    "workers": 6,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "dashboard.spec.ts",
+      "file": "dashboard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Dashboard",
+          "file": "dashboard.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display the main dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-9c9a67aabf578a13caeb",
+              "file": "dashboard.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "should show empty state when no targets exist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-856bd13a1553497377cf",
+              "file": "dashboard.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should open target form when Add Target button is clicked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-eb253fd082e34e73b597",
+              "file": "dashboard.spec.ts",
+              "line": 19,
+              "column": 7
+            },
+            {
+              "title": "should create a new target successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-1097bc45621dc1e4ba88",
+              "file": "dashboard.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "should configure login settings for a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-a3f6536c23a6e0d418bc",
+              "file": "dashboard.spec.ts",
+              "line": 45,
+              "column": 7
+            },
+            {
+              "title": "should add multiple URLs to a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-417bf0d8d438997d1702",
+              "file": "dashboard.spec.ts",
+              "line": 75,
+              "column": 7
+            },
+            {
+              "title": "should validate form inputs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-d9bf99737fe89975b568",
+              "file": "dashboard.spec.ts",
+              "line": 104,
+              "column": 7
+            },
+            {
+              "title": "should edit an existing target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-878de8ca8210b00c8b37",
+              "file": "dashboard.spec.ts",
+              "line": 116,
+              "column": 7
+            },
+            {
+              "title": "should delete a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-77a16ec9ca36e11d3e17",
+              "file": "dashboard.spec.ts",
+              "line": 141,
+              "column": 7
+            },
+            {
+              "title": "should display the main dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-83ee879ba0cc729a00b6",
+              "file": "dashboard.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "should show empty state when no targets exist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-9a7620082899107c1474",
+              "file": "dashboard.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should open target form when Add Target button is clicked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-8a64f546b987173a43f6",
+              "file": "dashboard.spec.ts",
+              "line": 19,
+              "column": 7
+            },
+            {
+              "title": "should create a new target successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-8b362529d49ebe6ccb3e",
+              "file": "dashboard.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "should configure login settings for a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-b6fe6c0aeae817b342f1",
+              "file": "dashboard.spec.ts",
+              "line": 45,
+              "column": 7
+            },
+            {
+              "title": "should add multiple URLs to a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-774ca7756ae5e71b5fc5",
+              "file": "dashboard.spec.ts",
+              "line": 75,
+              "column": 7
+            },
+            {
+              "title": "should validate form inputs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-b6f698ec7658d9fbc30b",
+              "file": "dashboard.spec.ts",
+              "line": 104,
+              "column": 7
+            },
+            {
+              "title": "should edit an existing target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-207942a5fbe06f051fd0",
+              "file": "dashboard.spec.ts",
+              "line": 116,
+              "column": 7
+            },
+            {
+              "title": "should delete a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-75c1ebb7057426f9511c",
+              "file": "dashboard.spec.ts",
+              "line": 141,
+              "column": 7
+            },
+            {
+              "title": "should display the main dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-af8d7219b99568feabde",
+              "file": "dashboard.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "should show empty state when no targets exist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-85e1de5a1308a8fa2a7b",
+              "file": "dashboard.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should open target form when Add Target button is clicked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-71cf99fec9aac1bf5285",
+              "file": "dashboard.spec.ts",
+              "line": 19,
+              "column": 7
+            },
+            {
+              "title": "should create a new target successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-eecebf120bdc915274a1",
+              "file": "dashboard.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "should configure login settings for a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-22fa7cc36e4d3f6518c9",
+              "file": "dashboard.spec.ts",
+              "line": 45,
+              "column": 7
+            },
+            {
+              "title": "should add multiple URLs to a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-c23341d76cffb91e1e71",
+              "file": "dashboard.spec.ts",
+              "line": 75,
+              "column": 7
+            },
+            {
+              "title": "should validate form inputs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-5eceb08ff9ce6577ebfc",
+              "file": "dashboard.spec.ts",
+              "line": 104,
+              "column": 7
+            },
+            {
+              "title": "should edit an existing target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-9a5b800b142d3418a7a1",
+              "file": "dashboard.spec.ts",
+              "line": 116,
+              "column": 7
+            },
+            {
+              "title": "should delete a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-a067a5d0377fad136993",
+              "file": "dashboard.spec.ts",
+              "line": 141,
+              "column": 7
+            },
+            {
+              "title": "should display the main dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-c1ca27cbc49ccab69d02",
+              "file": "dashboard.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "should show empty state when no targets exist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-441d566977ea5b3f5bc1",
+              "file": "dashboard.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should open target form when Add Target button is clicked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-480bdff94ebf202cb1be",
+              "file": "dashboard.spec.ts",
+              "line": 19,
+              "column": 7
+            },
+            {
+              "title": "should create a new target successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-4e91fd6e92a2400969cd",
+              "file": "dashboard.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "should configure login settings for a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-9292ee71db198bfc4bc8",
+              "file": "dashboard.spec.ts",
+              "line": 45,
+              "column": 7
+            },
+            {
+              "title": "should add multiple URLs to a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-95633b38e55c874baa7a",
+              "file": "dashboard.spec.ts",
+              "line": 75,
+              "column": 7
+            },
+            {
+              "title": "should validate form inputs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-542a8140165c1eaf7fd8",
+              "file": "dashboard.spec.ts",
+              "line": 104,
+              "column": 7
+            },
+            {
+              "title": "should edit an existing target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-b4d00013f83f3dd5fbf2",
+              "file": "dashboard.spec.ts",
+              "line": 116,
+              "column": 7
+            },
+            {
+              "title": "should delete a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-268ab9dc0baf01d03087",
+              "file": "dashboard.spec.ts",
+              "line": 141,
+              "column": 7
+            },
+            {
+              "title": "should display the main dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-3769a9c2d1d7ca5c22dc",
+              "file": "dashboard.spec.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "should show empty state when no targets exist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-ecf4e2227b00692a3f8c",
+              "file": "dashboard.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should open target form when Add Target button is clicked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-d2936738251e0b7229d6",
+              "file": "dashboard.spec.ts",
+              "line": 19,
+              "column": 7
+            },
+            {
+              "title": "should create a new target successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-ec84ee34f11beb7f9999",
+              "file": "dashboard.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "should configure login settings for a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-6033145a310e73716d9e",
+              "file": "dashboard.spec.ts",
+              "line": 45,
+              "column": 7
+            },
+            {
+              "title": "should add multiple URLs to a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-d239674f46f0d83ff715",
+              "file": "dashboard.spec.ts",
+              "line": 75,
+              "column": 7
+            },
+            {
+              "title": "should validate form inputs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-b7b832c0dffc6504fe73",
+              "file": "dashboard.spec.ts",
+              "line": 104,
+              "column": 7
+            },
+            {
+              "title": "should edit an existing target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-5be708fdc86f184f60b5",
+              "file": "dashboard.spec.ts",
+              "line": 116,
+              "column": 7
+            },
+            {
+              "title": "should delete a target",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "90cda532ab82d274b30b-1ef9788784250d2843c4",
+              "file": "dashboard.spec.ts",
+              "line": 141,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "infrastructure.spec.ts",
+      "file": "infrastructure.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "E2E Testing Infrastructure",
+          "file": "infrastructure.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should be able to navigate to a basic page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-865875a7b5b3b5e71007",
+              "file": "infrastructure.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should be able to take screenshots",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-9f01048e73e95d804fe2",
+              "file": "infrastructure.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should support different viewport sizes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-a8717f924ebbf16c2dda",
+              "file": "infrastructure.spec.ts",
+              "line": 23,
+              "column": 7
+            },
+            {
+              "title": "should handle basic interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-b24f878c091b88089491",
+              "file": "infrastructure.spec.ts",
+              "line": 36,
+              "column": 7
+            },
+            {
+              "title": "should support form interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-d017f1e521155080ba62",
+              "file": "infrastructure.spec.ts",
+              "line": 46,
+              "column": 7
+            },
+            {
+              "title": "should be able to navigate to a basic page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-dd5a318ded3401e59947",
+              "file": "infrastructure.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should be able to take screenshots",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-898646de8bf19e674422",
+              "file": "infrastructure.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should support different viewport sizes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-d00f8ee7635299462b26",
+              "file": "infrastructure.spec.ts",
+              "line": 23,
+              "column": 7
+            },
+            {
+              "title": "should handle basic interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-401b1d5168421d5683d1",
+              "file": "infrastructure.spec.ts",
+              "line": 36,
+              "column": 7
+            },
+            {
+              "title": "should support form interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-fba09d46fca56df01123",
+              "file": "infrastructure.spec.ts",
+              "line": 46,
+              "column": 7
+            },
+            {
+              "title": "should be able to navigate to a basic page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-f2394408bfbd46e963a7",
+              "file": "infrastructure.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should be able to take screenshots",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-9431b850f593025bb440",
+              "file": "infrastructure.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should support different viewport sizes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-45c270d432516e41cdfd",
+              "file": "infrastructure.spec.ts",
+              "line": 23,
+              "column": 7
+            },
+            {
+              "title": "should handle basic interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-89dc734b4c16e6ce4d21",
+              "file": "infrastructure.spec.ts",
+              "line": 36,
+              "column": 7
+            },
+            {
+              "title": "should support form interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-dd06b24bfb77f9001644",
+              "file": "infrastructure.spec.ts",
+              "line": 46,
+              "column": 7
+            },
+            {
+              "title": "should be able to navigate to a basic page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-b088ff4d2e33c59b510a",
+              "file": "infrastructure.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should be able to take screenshots",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-d19f4a47b9654c3d9aaa",
+              "file": "infrastructure.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should support different viewport sizes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-e5cad1a5b2ff77bc1942",
+              "file": "infrastructure.spec.ts",
+              "line": 23,
+              "column": 7
+            },
+            {
+              "title": "should handle basic interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-5e1d1048fc8bab53b15c",
+              "file": "infrastructure.spec.ts",
+              "line": 36,
+              "column": 7
+            },
+            {
+              "title": "should support form interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-2269b4c309ad13847884",
+              "file": "infrastructure.spec.ts",
+              "line": 46,
+              "column": 7
+            },
+            {
+              "title": "should be able to navigate to a basic page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-bed3a38643580a50e9e1",
+              "file": "infrastructure.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should be able to take screenshots",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-469415205e2a32585231",
+              "file": "infrastructure.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "should support different viewport sizes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-f21d4c6c26e4b15d4124",
+              "file": "infrastructure.spec.ts",
+              "line": 23,
+              "column": 7
+            },
+            {
+              "title": "should handle basic interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-cd128b1d369624a4d2bd",
+              "file": "infrastructure.spec.ts",
+              "line": 36,
+              "column": 7
+            },
+            {
+              "title": "should support form interactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a5571fb372c0c91b6e8b-bede0e1cf6678435699c",
+              "file": "infrastructure.spec.ts",
+              "line": 46,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-08T08:31:55.767Z",
+    "duration": 64.62100000000004,
+    "expected": 0,
+    "skipped": 70,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

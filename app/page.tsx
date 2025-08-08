@@ -103,10 +103,7 @@ export default function Dashboard() {
     setShowForm(true);
   };
 
-  const closeForm = () => {
-    setShowForm(false);
-    setEditingTarget(undefined);
-  };
+
 
   if (loading) {
     return (

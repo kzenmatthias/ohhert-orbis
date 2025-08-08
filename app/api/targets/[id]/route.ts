@@ -3,11 +3,12 @@ import { getDb } from '@/lib/db';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const db = getDb();
-    const target = db.getTarget(parseInt(params.id));
+    const { id } = await params;
+    const target = db.getTarget(parseInt(id));
     
     if (!target) {
       return NextResponse.json({ error: 'Target not found' }, { status: 404 });
@@ -22,13 +23,14 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
     const db = getDb();
+    const { id } = await params;
     
-    const target = db.updateTarget(parseInt(params.id), {
+    const target = db.updateTarget(parseInt(id), {
       name: body.name,
       requiresLogin: body.requiresLogin,
       loginUrl: body.loginUrl,
@@ -53,11 +55,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const db = getDb();
-    const success = db.deleteTarget(parseInt(params.id));
+    const { id } = await params;
+    const success = db.deleteTarget(parseInt(id));
     
     if (!success) {
       return NextResponse.json({ error: 'Target not found' }, { status: 404 });

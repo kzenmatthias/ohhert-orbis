@@ -4,11 +4,12 @@ import { getLatestSessionScreenshots } from '@/lib/screenshot-utils';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const db = getDb();
-    const target = db.getTarget(parseInt(params.id));
+    const { id } = await params;
+    const target = db.getTarget(parseInt(id));
     
     if (!target) {
       return NextResponse.json({ error: 'Target not found' }, { status: 404 });
