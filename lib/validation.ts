@@ -220,6 +220,60 @@ export const screenshotRunValidationSchema: ValidationSchema = {
   },
 };
 
+export const cronJobValidationSchema: ValidationSchema = {
+  name: {
+    required: true,
+    type: 'string',
+    minLength: 1,
+    maxLength: 255,
+    pattern: /^[a-zA-Z0-9\s\-_]+$/,
+  },
+  cronExpression: {
+    required: true,
+    type: 'string',
+    minLength: 9, // Minimum valid cron expression: "* * * * *"
+    maxLength: 100,
+    custom: (value) => {
+      if (typeof value !== 'string') return false;
+      
+      // Simple cron expression validation - should have 5 parts
+      const parts = value.trim().split(/\s+/);
+      if (parts.length !== 5) {
+        return 'Invalid cron expression format. Use format: "minute hour day month weekday" (e.g., "0 9 * * 1-5" for 9 AM weekdays)';
+      }
+      
+      return true;
+    },
+  },
+  enabled: {
+    type: 'boolean',
+  },
+  cronJobTargets: {
+    type: 'array',
+    custom: (value) => {
+      if (!Array.isArray(value)) return false;
+      if (value.length === 0) return 'At least one target must be associated with the cron job';
+      
+      for (const target of value) {
+        if (typeof target !== 'object' || target === null) {
+          return 'Each cron job target must be an object';
+        }
+        
+        const targetObj = target as Record<string, unknown>;
+        if (!targetObj.targetId || typeof targetObj.targetId !== 'number') {
+          return 'Each cron job target must have a valid targetId';
+        }
+        
+        if (targetObj.targetId <= 0) {
+          return 'Target IDs must be positive numbers';
+        }
+      }
+      
+      return true;
+    },
+  },
+};
+
 // Validation middleware helper
 export function validateRequest(schema: ValidationSchema) {
   return (data: unknown): void => {

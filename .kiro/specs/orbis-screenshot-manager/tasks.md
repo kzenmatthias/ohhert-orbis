@@ -95,7 +95,7 @@
     - Create bundle optimization and code splitting
     - _Requirements: 6.1, 6.4_
 
-- [ ] 6. Add advanced target management features
+- [-] 6. Add advanced target management features
   - [ ] 6.1 Implement target grouping and organization
     - Add target categories and tagging system
     - Create target search and filtering capabilities

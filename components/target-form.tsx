@@ -25,7 +25,7 @@ import {
   clearFormErrors,
   getFieldError
 } from "@/lib/error-handling";
-import { Plus, Trash2, AlertCircle } from "lucide-react";
+import { Plus, Trash2, AlertCircle, X, Tag } from "lucide-react";
 
 interface TargetFormProps {
   target?: ScreenshotTarget;
@@ -51,11 +51,14 @@ export function TargetForm({
     submitSelector: "",
     usernameEnvKey: "",
     passwordEnvKey: "",
+    category: "",
+    tags: [] as string[],
     urls: [] as ScreenshotUrl[],
   });
   
   const [errors, setErrors] = useState<FormErrorState>(createFormErrorState());
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newTag, setNewTag] = useState("");
 
   // Update form data when target changes
   useEffect(() => {
@@ -69,6 +72,8 @@ export function TargetForm({
         submitSelector: target.submitSelector || "",
         usernameEnvKey: target.usernameEnvKey || "",
         passwordEnvKey: target.passwordEnvKey || "",
+        category: target.category || "",
+        tags: target.tags || [],
         urls: target.urls || [],
       });
     } else {
@@ -82,6 +87,8 @@ export function TargetForm({
         submitSelector: "",
         usernameEnvKey: "",
         passwordEnvKey: "",
+        category: "",
+        tags: [],
         urls: [],
       });
     }
@@ -89,6 +96,7 @@ export function TargetForm({
     // Clear errors when target changes
     setErrors(clearFormErrors());
     setIsSubmitting(false);
+    setNewTag("");
   }, [target, open]);
 
   const validateForm = (): boolean => {
@@ -228,6 +236,31 @@ export function TargetForm({
     }));
   };
 
+  const addTag = () => {
+    const tag = newTag.trim();
+    if (tag && !formData.tags.includes(tag)) {
+      setFormData((prev) => ({
+        ...prev,
+        tags: [...prev.tags, tag],
+      }));
+      setNewTag("");
+    }
+  };
+
+  const removeTag = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      tags: prev.tags.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleTagKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addTag();
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -266,6 +299,62 @@ export function TargetForm({
                 {getFieldError(errors, 'name')}
               </div>
             )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="category">Category</Label>
+              <Input
+                id="category"
+                value={formData.category}
+                onChange={(e) => handleInputChange("category", e.target.value)}
+                placeholder="e.g., Production, Development"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Tags</Label>
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-1 min-h-[32px] p-2 border rounded-md">
+                  {formData.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 text-primary text-xs rounded-md"
+                    >
+                      <Tag className="h-3 w-3" />
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() => removeTag(index)}
+                        className="hover:bg-primary/20 rounded-full p-0.5"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </span>
+                  ))}
+                  {formData.tags.length === 0 && (
+                    <span className="text-muted-foreground text-sm">No tags added</span>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Add a tag..."
+                    value={newTag}
+                    onChange={(e) => setNewTag(e.target.value)}
+                    onKeyDown={handleTagKeyDown}
+                    className="flex-1"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={addTag}
+                    disabled={!newTag.trim()}
+                  >
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* URLs Section */}

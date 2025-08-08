@@ -7,18 +7,33 @@ import { createDatabaseError } from '@/lib/api-error';
 
 export const GET = withApiMiddleware(async (request, context) => {
   try {
-    logger.databaseOperation('getAllTargets', 'targets', { requestId: context.requestId });
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('q') || '';
+    const category = searchParams.get('category') || undefined;
+    const tagsParam = searchParams.get('tags');
+    const tags = tagsParam ? tagsParam.split(',').filter(Boolean) : undefined;
+    
+    logger.databaseOperation('searchTargets', 'targets', { 
+      requestId: context.requestId,
+      query,
+      category,
+      tags: tags?.join(',')
+    });
+    
     const db = getDb();
-    const targets = db.getAllTargets();
+    const targets = query || category || tags ? 
+      db.searchTargets(query, category, tags) : 
+      db.getAllTargets();
     
     logger.info('Successfully fetched targets', { 
       requestId: context.requestId,
-      count: targets.length 
+      count: targets.length,
+      filtered: !!(query || category || tags)
     });
     
     return NextResponse.json(targets);
   } catch (error) {
-    logger.databaseError('getAllTargets', error as Error, { requestId: context.requestId });
+    logger.databaseError('searchTargets', error as Error, { requestId: context.requestId });
     throw createDatabaseError('Failed to fetch targets', error instanceof Error ? error.message : undefined);
   }
 });
@@ -61,6 +76,8 @@ export const POST = withApiMiddleware(async (request, context) => {
       submitSelector: targetData.submitSelector,
       usernameEnvKey: targetData.usernameEnvKey,
       passwordEnvKey: targetData.passwordEnvKey,
+      category: (targetData as { category?: string }).category,
+      tags: (targetData as { tags?: string[] }).tags,
       urls: targetData.urls?.map(url => ({ 
         name: url.name, 
         url: url.url,
