@@ -13,8 +13,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { LoadingSpinner } from "@/components/ui/loading";
+import { FormErrorBoundary } from "@/components/error-boundary";
 import { ScreenshotTarget, ScreenshotUrl } from "@/lib/db";
-import { Plus, Trash2 } from "lucide-react";
+import { 
+  FormErrorState, 
+  createFormErrorState, 
+  addFormError, 
+  removeFormError, 
+  setGeneralError,
+  clearFormErrors,
+  getFieldError
+} from "@/lib/error-handling";
+import { Plus, Trash2, AlertCircle } from "lucide-react";
 
 interface TargetFormProps {
   target?: ScreenshotTarget;
@@ -22,7 +33,7 @@ interface TargetFormProps {
   onOpenChange: (open: boolean) => void;
   onSave: (
     target: Omit<ScreenshotTarget, "id" | "createdAt" | "updatedAt">
-  ) => void;
+  ) => Promise<void>;
 }
 
 export function TargetForm({
@@ -42,6 +53,9 @@ export function TargetForm({
     passwordEnvKey: "",
     urls: [] as ScreenshotUrl[],
   });
+  
+  const [errors, setErrors] = useState<FormErrorState>(createFormErrorState());
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Update form data when target changes
   useEffect(() => {
@@ -71,28 +85,107 @@ export function TargetForm({
         urls: [],
       });
     }
-  }, [target]);
+    
+    // Clear errors when target changes
+    setErrors(clearFormErrors());
+    setIsSubmitting(false);
+  }, [target, open]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = (): boolean => {
+    let newErrors = clearFormErrors();
+
+    // Validate name
+    if (!formData.name.trim()) {
+      newErrors = addFormError(newErrors, 'name', 'Target name is required');
+    } else if (formData.name.length > 255) {
+      newErrors = addFormError(newErrors, 'name', 'Target name must be less than 255 characters');
+    } else if (!/^[a-zA-Z0-9\s\-_]+$/.test(formData.name)) {
+      newErrors = addFormError(newErrors, 'name', 'Target name can only contain letters, numbers, spaces, hyphens, and underscores');
+    }
+
+    // Validate URLs
+    if (formData.urls.length === 0) {
+      newErrors = addFormError(newErrors, 'urls', 'At least one URL is required');
+    } else {
+      const incompleteUrls = formData.urls.some(
+        (url) => !url.name.trim() || !url.url.trim()
+      );
+      if (incompleteUrls) {
+        newErrors = addFormError(newErrors, 'urls', 'Please fill in both name and URL for all entries');
+      } else {
+        // Validate individual URLs
+        for (let i = 0; i < formData.urls.length; i++) {
+          const url = formData.urls[i];
+          try {
+            new URL(url.url);
+          } catch {
+            newErrors = addFormError(newErrors, 'urls', `URL "${url.name}" is not a valid URL`);
+            break;
+          }
+        }
+      }
+    }
+
+    // Validate login configuration if required
+    if (formData.requiresLogin) {
+      if (!formData.loginUrl?.trim()) {
+        newErrors = addFormError(newErrors, 'loginUrl', 'Login URL is required when login is enabled');
+      } else {
+        try {
+          new URL(formData.loginUrl);
+        } catch {
+          newErrors = addFormError(newErrors, 'loginUrl', 'Login URL must be a valid URL');
+        }
+      }
+
+      if (!formData.usernameSelector?.trim()) {
+        newErrors = addFormError(newErrors, 'usernameSelector', 'Username selector is required when login is enabled');
+      }
+
+      if (!formData.passwordSelector?.trim()) {
+        newErrors = addFormError(newErrors, 'passwordSelector', 'Password selector is required when login is enabled');
+      }
+
+      if (!formData.submitSelector?.trim()) {
+        newErrors = addFormError(newErrors, 'submitSelector', 'Submit selector is required when login is enabled');
+      }
+
+      if (!formData.usernameEnvKey?.trim()) {
+        newErrors = addFormError(newErrors, 'usernameEnvKey', 'Username environment variable is required when login is enabled');
+      } else if (!/^[A-Z_][A-Z0-9_]*$/.test(formData.usernameEnvKey)) {
+        newErrors = addFormError(newErrors, 'usernameEnvKey', 'Environment variable must be uppercase letters, numbers, and underscores only');
+      }
+
+      if (!formData.passwordEnvKey?.trim()) {
+        newErrors = addFormError(newErrors, 'passwordEnvKey', 'Password environment variable is required when login is enabled');
+      } else if (!/^[A-Z_][A-Z0-9_]*$/.test(formData.passwordEnvKey)) {
+        newErrors = addFormError(newErrors, 'passwordEnvKey', 'Environment variable must be uppercase letters, numbers, and underscores only');
+      }
+    }
+
+    setErrors(newErrors);
+    return !newErrors.hasErrors;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate that at least one URL is provided
-    if (formData.urls.length === 0) {
-      alert("Please add at least one URL to screenshot.");
+    if (!validateForm()) {
       return;
     }
 
-    // Validate that all URLs have both name and url filled
-    const incompleteUrls = formData.urls.some(
-      (url) => !url.name.trim() || !url.url.trim()
-    );
-    if (incompleteUrls) {
-      alert("Please fill in both name and URL for all entries.");
-      return;
-    }
+    setIsSubmitting(true);
+    setErrors(clearFormErrors());
 
-    onSave(formData);
-    onOpenChange(false);
+    try {
+      await onSave(formData);
+      onOpenChange(false);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setErrors(setGeneralError(clearFormErrors(), 'Failed to save target. Please try again.'));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (
@@ -100,6 +193,11 @@ export function TargetForm({
     value: string | boolean | ScreenshotUrl[]
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    
+    // Clear field error when user starts typing
+    if (getFieldError(errors, field)) {
+      setErrors(removeFormError(errors, field));
+    }
   };
 
   const addUrl = () => {
@@ -143,7 +241,15 @@ export function TargetForm({
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <FormErrorBoundary>
+          {errors.generalError && (
+            <div className="flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-sm">
+              <AlertCircle className="h-4 w-4 flex-shrink-0" />
+              <span>{errors.generalError}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name">Target Name</Label>
             <Input
@@ -151,16 +257,31 @@ export function TargetForm({
               value={formData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
               placeholder="e.g., My Website"
+              className={getFieldError(errors, 'name') ? 'border-destructive' : ''}
               required
             />
+            {getFieldError(errors, 'name') && (
+              <div className="text-sm text-destructive flex items-center gap-1">
+                <AlertCircle className="h-3 w-3" />
+                {getFieldError(errors, 'name')}
+              </div>
+            )}
           </div>
 
           {/* URLs Section */}
           <div className="space-y-4">
             <Label>URLs to Screenshot</Label>
+            {getFieldError(errors, 'urls') && (
+              <div className="text-sm text-destructive flex items-center gap-1">
+                <AlertCircle className="h-3 w-3" />
+                {getFieldError(errors, 'urls')}
+              </div>
+            )}
 
             {formData.urls.length === 0 ? (
-              <div className="text-center py-4 text-muted-foreground border border-dashed rounded">
+              <div className={`text-center py-4 text-muted-foreground border border-dashed rounded ${
+                getFieldError(errors, 'urls') ? 'border-destructive/50' : ''
+              }`}>
                 No URLs added yet. Click &quot;Add URL&quot; to get started.
               </div>
             ) : (
@@ -248,7 +369,14 @@ export function TargetForm({
                     handleInputChange("loginUrl", e.target.value)
                   }
                   placeholder="https://example.com/login"
+                  className={getFieldError(errors, 'loginUrl') ? 'border-destructive' : ''}
                 />
+                {getFieldError(errors, 'loginUrl') && (
+                  <div className="text-sm text-destructive flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    {getFieldError(errors, 'loginUrl')}
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -261,7 +389,14 @@ export function TargetForm({
                       handleInputChange("usernameSelector", e.target.value)
                     }
                     placeholder="input[name='username']"
+                    className={getFieldError(errors, 'usernameSelector') ? 'border-destructive' : ''}
                   />
+                  {getFieldError(errors, 'usernameSelector') && (
+                    <div className="text-sm text-destructive flex items-center gap-1">
+                      <AlertCircle className="h-3 w-3" />
+                      {getFieldError(errors, 'usernameSelector')}
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="passwordSelector">Password Selector</Label>
@@ -272,7 +407,14 @@ export function TargetForm({
                       handleInputChange("passwordSelector", e.target.value)
                     }
                     placeholder="input[name='password']"
+                    className={getFieldError(errors, 'passwordSelector') ? 'border-destructive' : ''}
                   />
+                  {getFieldError(errors, 'passwordSelector') && (
+                    <div className="text-sm text-destructive flex items-center gap-1">
+                      <AlertCircle className="h-3 w-3" />
+                      {getFieldError(errors, 'passwordSelector')}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -285,7 +427,14 @@ export function TargetForm({
                     handleInputChange("submitSelector", e.target.value)
                   }
                   placeholder="button[type='submit']"
+                  className={getFieldError(errors, 'submitSelector') ? 'border-destructive' : ''}
                 />
+                {getFieldError(errors, 'submitSelector') && (
+                  <div className="text-sm text-destructive flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    {getFieldError(errors, 'submitSelector')}
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -298,7 +447,14 @@ export function TargetForm({
                       handleInputChange("usernameEnvKey", e.target.value)
                     }
                     placeholder="USERNAME_EXAMPLE"
+                    className={getFieldError(errors, 'usernameEnvKey') ? 'border-destructive' : ''}
                   />
+                  {getFieldError(errors, 'usernameEnvKey') && (
+                    <div className="text-sm text-destructive flex items-center gap-1">
+                      <AlertCircle className="h-3 w-3" />
+                      {getFieldError(errors, 'usernameEnvKey')}
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="passwordEnvKey">Password Env Variable</Label>
@@ -309,7 +465,14 @@ export function TargetForm({
                       handleInputChange("passwordEnvKey", e.target.value)
                     }
                     placeholder="PASSWORD_EXAMPLE"
+                    className={getFieldError(errors, 'passwordEnvKey') ? 'border-destructive' : ''}
                   />
+                  {getFieldError(errors, 'passwordEnvKey') && (
+                    <div className="text-sm text-destructive flex items-center gap-1">
+                      <AlertCircle className="h-3 w-3" />
+                      {getFieldError(errors, 'passwordEnvKey')}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -320,12 +483,17 @@ export function TargetForm({
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
+              disabled={isSubmitting}
             >
               Cancel
             </Button>
-            <Button type="submit">{target ? "Update" : "Create"} Target</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting && <LoadingSpinner size="sm" className="mr-2" />}
+              {target ? "Update" : "Create"} Target
+            </Button>
           </DialogFooter>
         </form>
+        </FormErrorBoundary>
       </DialogContent>
     </Dialog>
   );

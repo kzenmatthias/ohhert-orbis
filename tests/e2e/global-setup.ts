@@ -26,7 +26,7 @@ async function globalSetup(config: FullConfig) {
   }
 
   // Set test environment variables
-  process.env.NODE_ENV = 'test';
+  // process.env.NODE_ENV = 'test'; // This is read-only in production builds
   process.env.DATABASE_PATH = testDbPath;
   process.env.SCREENSHOTS_DIR = path.join(process.cwd(), 'screenshots');
 

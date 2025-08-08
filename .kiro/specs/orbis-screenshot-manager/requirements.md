@@ -117,12 +117,15 @@ Orbis is a local web-based tool for managing website screenshot targets and taki
 
 ### Requirement 10
 
-**User Story:** As a user, I want responsive performance during screenshot operations, so that the interface remains usable while captures are running.
+**User Story:** As a user, I want to configure automated screenshot schedules using cron jobs, so that I can capture screenshots at regular intervals without manual intervention.
 
 #### Acceptance Criteria
 
-1. WHEN screenshot capture is running THEN the system SHALL show progress indicators and remain responsive
-2. WHEN multiple targets are being processed THEN the system SHALL handle them efficiently without blocking the UI
-3. WHEN large screenshots are being captured THEN the system SHALL manage memory usage appropriately
-4. WHEN browser instances are created THEN the system SHALL reuse them efficiently and clean up properly
-5. IF operations take longer than expected THEN the system SHALL provide status updates and allow cancellation where possible
+1. WHEN I access the cron job management interface THEN the system SHALL display all configured scheduled jobs
+2. WHEN I create a new cron job THEN the system SHALL allow me to specify cron expression, target selection, and job name
+3. WHEN I edit an existing cron job THEN the system SHALL pre-populate the form with current configuration
+4. WHEN I delete a cron job THEN the system SHALL prompt for confirmation and remove the scheduled job
+5. WHEN a cron job is scheduled THEN the system SHALL validate the cron expression syntax before saving
+6. WHEN a scheduled job executes THEN the system SHALL capture screenshots for the specified targets automatically
+7. WHEN cron jobs are running THEN the system SHALL log execution results and handle failures gracefully
+8. IF a cron expression is invalid THEN the system SHALL prevent saving and display clear error messages

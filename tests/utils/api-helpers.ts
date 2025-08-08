@@ -15,7 +15,10 @@ export function createNextRequest(method: string, url: string, body?: any): Next
     requestInit.body = JSON.stringify(body);
   }
 
-  return new NextRequest(url, requestInit);
+  return new NextRequest(url, {
+    ...requestInit,
+    signal: requestInit.signal || undefined
+  });
 }
 
 /**
@@ -60,28 +63,28 @@ export function mockFileSystem() {
   const mockFiles: Record<string, string> = {};
   const mockDirs: Set<string> = new Set();
 
-  jest.spyOn(fs, 'existsSync').mockImplementation((filePath: string) => {
-    return mockFiles.hasOwnProperty(filePath) || mockDirs.has(filePath);
+  jest.spyOn(fs, 'existsSync').mockImplementation((filePath: unknown) => {
+    return mockFiles.hasOwnProperty(filePath as string) || mockDirs.has(filePath as string);
   });
 
-  jest.spyOn(fs, 'readFileSync').mockImplementation((filePath: string) => {
-    if (mockFiles[filePath]) {
-      return mockFiles[filePath];
+  jest.spyOn(fs, 'readFileSync').mockImplementation((filePath: unknown) => {
+    if (mockFiles[filePath as string]) {
+      return mockFiles[filePath as string];
     }
     throw new Error(`File not found: ${filePath}`);
   });
 
-  jest.spyOn(fs, 'writeFileSync').mockImplementation((filePath: string, data: string) => {
-    mockFiles[filePath] = data;
+  jest.spyOn(fs, 'writeFileSync').mockImplementation((filePath: unknown, data: unknown) => {
+    mockFiles[filePath as string] = data as string;
   });
 
-  jest.spyOn(fs, 'mkdirSync').mockImplementation((dirPath: string) => {
-    mockDirs.add(dirPath);
+  jest.spyOn(fs, 'mkdirSync').mockImplementation((dirPath: unknown) => {
+    mockDirs.add(dirPath as string);
   });
 
-  jest.spyOn(fs, 'readdirSync').mockImplementation((dirPath: string) => {
+  jest.spyOn(fs, 'readdirSync').mockImplementation((dirPath: unknown) => {
     const files = Object.keys(mockFiles)
-      .filter(file => path.dirname(file) === dirPath)
+      .filter(file => path.dirname(file) === (dirPath as string))
       .map(file => path.basename(file));
     return files;
   });

@@ -16,11 +16,14 @@ graph TB
     BL --> FS[File System]
     BL --> PW[Playwright Browser]
     BL --> ENV[Environment Variables]
+    SCHED[Cron Scheduler] --> BL
+    SCHED --> DB
     
     subgraph "Frontend"
         UI
         COMP[UI Components]
         FORM[Forms & Dialogs]
+        CRON[Cron Job Manager]
     end
     
     subgraph "Backend Services"
@@ -28,6 +31,7 @@ graph TB
         BL
         SS[Screenshot Service]
         DM[Database Manager]
+        SCHED
     end
     
     subgraph "External Dependencies"
@@ -45,6 +49,7 @@ graph TB
 - **Backend**: Next.js API Routes, Node.js runtime
 - **Database**: SQLite with better-sqlite3
 - **Browser Automation**: Playwright (Chromium)
+- **Scheduling**: node-cron for cron job management
 - **File Storage**: Local file system with organized directory structure
 - **Security**: Environment-based credential management
 
@@ -77,6 +82,14 @@ graph TB
   - Error handling for missing images
   - Session-based screenshot grouping
 
+#### Cron Job Manager Component (`components/cron-job-manager.tsx`)
+- **Purpose**: Interface for managing scheduled screenshot captures
+- **Features**:
+  - CRUD operations for cron jobs
+  - Cron expression validation and builder
+  - Target selection for scheduled jobs
+  - Job execution history and status display
+
 ### API Layer
 
 #### Targets API (`/api/targets`)
@@ -98,6 +111,12 @@ graph TB
   - Path traversal protection
   - Content-type validation
   - Caching headers for performance
+
+#### Cron Jobs API (`/api/cron-jobs`)
+- **GET**: Retrieve all configured cron jobs with schedules and target associations
+- **POST**: Create new cron job with validation of cron expression and target selection
+- **PUT**: Update existing cron job configuration including schedule and targets
+- **DELETE**: Remove cron job and stop scheduled execution
 
 ### Business Logic Layer
 
@@ -157,6 +176,33 @@ CREATE TABLE target_urls (
 );
 ```
 
+#### Cron Jobs Table
+```sql
+CREATE TABLE cron_jobs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE,
+  cronExpression TEXT NOT NULL,
+  isActive BOOLEAN NOT NULL DEFAULT 1,
+  lastRun DATETIME,
+  nextRun DATETIME,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+#### Cron Job Targets Table
+```sql
+CREATE TABLE cron_job_targets (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  cronJobId INTEGER NOT NULL,
+  targetId INTEGER NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (cronJobId) REFERENCES cron_jobs (id) ON DELETE CASCADE,
+  FOREIGN KEY (targetId) REFERENCES targets (id) ON DELETE CASCADE,
+  UNIQUE(cronJobId, targetId)
+);
+```
+
 ### TypeScript Interfaces
 
 #### ScreenshotTarget Interface
@@ -184,6 +230,31 @@ interface ScreenshotUrl {
   targetId: number;
   name: string;
   url: string;
+  createdAt?: string;
+}
+```
+
+#### CronJob Interface
+```typescript
+interface CronJob {
+  id?: number;
+  name: string;
+  cronExpression: string;
+  isActive: boolean;
+  lastRun?: string;
+  nextRun?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  targets?: ScreenshotTarget[];
+}
+```
+
+#### CronJobTarget Interface
+```typescript
+interface CronJobTarget {
+  id?: number;
+  cronJobId: number;
+  targetId: number;
   createdAt?: string;
 }
 ```
