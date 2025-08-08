@@ -139,7 +139,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # Database files
-/data/*.db
+/data/*
 
 # Screenshots
 /screenshots/*
